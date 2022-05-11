@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
@@ -9,8 +9,24 @@ export class PostsController {
     getHello(): string {
         return this.postService.getHello();
     }
-    @Get('/list')
-    getPosts(): any {
-        return this.postService.getPosts();
+    @Post()
+    async getPosts(
+        @Body('title') postTitle: string,
+        @Body('body') postBody: string,
+    ) {
+        const generatedId = await this.postService.insertPost(postTitle, postBody);
+        return `post created sucessfully`
+    }
+    @Get('list')
+    async getAllPost(){
+        const post = await this.postService.getAllPost();
+        console.log('post',post)
+        return post
+    }
+    @Get(':id')
+    async getPostById(@Param('id') id: string){
+        const post = await this.postService.getPostById(id);
+        console.log('post',post)
+        return post
     }
 }
