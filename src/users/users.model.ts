@@ -36,8 +36,6 @@ export const UserSchema = new mongoose.Schema(
 		lastName: { type: String },
 		email: { type: String, trim: true, lowercase: true, sparse: true },
 		password: { type: String },
-		salt: { type: String },
-		role: { type: String, enum: Object.values(UserRoles) },
     },
 	{
 		timestamps: true,
@@ -62,14 +60,8 @@ export class UserCreateDTO {
 	@IsNotEmpty()
 	@Length(6, 35)
 	password: string;
-
-	@IsString()
-	@IsEnum(UserRoles, {
-		message: 'Role type must be one of these ' + Object.keys(UserRoles),
-	})
-	role: string;
 	
-	salt?: string;
+	
 }
 export class LoginDTO {
 	@IsNotEmpty()
@@ -81,6 +73,21 @@ export class LoginDTO {
 	@Length(6, 35)
 	@IsString()
 	password: string;
+	
+}
+export class passwordChangeDto {
+    @IsNotEmpty()
+	@IsEmail()
+	@IsString()
+	email: string;
+
+	@IsNotEmpty()
+	@IsString()
+	oldPassword: string;
+
+	@IsNotEmpty()
+	@IsString()
+	currentPassword: string;
 	
 }
 
