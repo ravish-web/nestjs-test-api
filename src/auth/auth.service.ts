@@ -4,8 +4,9 @@ import { compare, hash } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
-
+  constructor(
+    private  jwtService: JwtService
+    ) {}
   public async hashPassword(password: string) {
     const hashedPassword = await hash(password, 10);
     return  hashedPassword ;
@@ -23,4 +24,3 @@ export class AuthService {
     return this.jwtService.signAsync(payload, { expiresIn: '30d' });
   }
 }
-

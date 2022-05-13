@@ -10,11 +10,12 @@ import { UsersService } from './users.service';
 @Module({
   imports: [MongooseModule.forFeature([{name: 'User', schema: UserSchema}]),
   JwtModule.register({ 
-    secret: 'secret',
+    secret: 'key',
     signOptions: {expiresIn: '30d'}
   })
 ],
   controllers: [UsersController],
-  providers: [UsersService, AuthService]
+  providers: [UsersService, AuthService],
+  exports: [UsersService, MongooseModule, JwtModule]
 })
 export class UsersModule {}

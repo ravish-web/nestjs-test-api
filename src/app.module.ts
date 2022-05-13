@@ -7,6 +7,7 @@ import { CommentsModule } from './comments/comments.module';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { LocalStrategy } from './auth/local.strategy';
 
 @Module({
  // imports: [PostsModule, CommentsModule],
@@ -17,10 +18,10 @@ import { AuthModule } from './auth/auth.module';
    AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, LocalStrategy],
   exports: [
 		UsersModule,
-		MongooseModule,
+		MongooseModule
 	]
 })
 export class AppModule {}

@@ -34,7 +34,7 @@ export const UserSchema = new mongoose.Schema(
 	{
 		firstName: { type: String },
 		lastName: { type: String },
-		email: { type: String, trim: true, lowercase: true, sparse: true },
+		username: { type: String },
 		password: { type: String },
     },
 	{
@@ -54,7 +54,7 @@ export class UserCreateDTO {
 
 	@IsEmail()
 	@IsNotEmpty()
-	email: string;
+	username: string;
 
 	@IsString()
 	@IsNotEmpty()
@@ -67,7 +67,7 @@ export class LoginDTO {
 	@IsNotEmpty()
 	@IsEmail()
 	@IsString()
-	email: string;
+	username: string;
 
 	@IsNotEmpty()
 	@Length(6, 35)
@@ -79,7 +79,7 @@ export class passwordChangeDto {
     @IsNotEmpty()
 	@IsEmail()
 	@IsString()
-	email: string;
+	username: string;
 
 	@IsNotEmpty()
 	@IsString()
